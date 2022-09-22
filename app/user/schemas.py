@@ -5,6 +5,7 @@ from pydantic import BaseModel
 
 import app.auth.enums as auth
 from app.user.factories import PyObjectId
+from app.user.models import User
 
 
 class UserEditRequest(BaseModel):
@@ -21,4 +22,9 @@ class UserCreateRequest(BaseModel):
     first_name: str
     last_name: str
     password: str
-    permissions: Optional[str]
+    role: Optional[str]
+
+
+class UserCreateResponse(User):
+    class Config:
+        fields = {"hashed_pass": {"exclude": True}}
